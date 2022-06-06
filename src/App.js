@@ -19,7 +19,7 @@ const hideCartHandler = () =>{
     <CartProvider>
       {/* Here it means render the code dynamically
        If condition will true then render the component otherwise not*/}
-     {cartIsShown && <Cart sonClose={hideCartHandler}/>}
+     {cartIsShown && <Cart onClose={hideCartHandler}/>}
      {/* onShowCart function name is up to you, but it is moslty followed convention in which we starting with 'on' */}
     <Header onShowCart={showCartHandler}/>
     <main>
