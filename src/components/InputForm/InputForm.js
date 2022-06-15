@@ -4,7 +4,7 @@ const InputForm = (props) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [amount, setAmount] = useState('');
+    // const [amount, setAmount] = useState('');
 
     
     const nameChangeHandler = (event) => {
@@ -16,9 +16,9 @@ const InputForm = (props) => {
     const priceChangeHandler = (event) => {
         setPrice(event.target.value);
     }
-    const amountChangeHandler = (event) => {
-        setAmount(event.target.value);
-    }
+    // const amountChangeHandler = (event) => {
+    //     setAmount(event.target.value);
+    // }
 
     const formSubmitHandler = (event) => {
         event.preventDefault();
@@ -30,13 +30,13 @@ const InputForm = (props) => {
         props.inputFormData({
             name:name,
             description:description,
-            price:price,
-            amount:amount
+            price:+price,
+            // amount:amount
         })
 
         setName('')
         setDescription('')
-        setAmount('')
+        // setAmount('')
         setPrice('')
 
     }
@@ -50,8 +50,8 @@ const InputForm = (props) => {
                 <input type="text" onChange={descriptionChangeHandler} value={description}></input>
                 <label>Price</label>
                 <input type="number" onChange={priceChangeHandler} value={price}></input>
-                <label>Amount</label>
-                <input type="number" onChange={amountChangeHandler} min='1' max='5' value={amount}></input>
+                {/* <label>Amount</label> */}
+                {/* <input type="number" onChange={amountChangeHandler} min='1' max='5' value={amount}></input> */}
                 <button type="submit">Submit</button>
             </form>
         </Fragment>
