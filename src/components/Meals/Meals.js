@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import MealsSummary from "./MealsSummary";
 import AvailableMeals from "./AvailableMeals";
 import InputForm from "../InputForm/InputForm";
@@ -31,8 +31,9 @@ import InputForm from "../InputForm/InputForm";
 
 
 const Meals = (props) => {
-    const [newItem,setNewItem]=useState([]);
-// const [isItemAdded, setIsItemAdded]=useState(false);
+    // const [newItem, setNewItem] = useState([]);
+    const [dbItems, setDbItems] = useState([]);
+    
     async function inputFormDataHandler(item) {
         item = { id: Math.random().toString(), ...item };
         await fetch('https://reactmealapp-1d919-default-rtdb.firebaseio.com/mealItem.json', {
@@ -42,34 +43,39 @@ const Meals = (props) => {
                 'Content-Type': 'application/json'
             }
         });
-        setNewItem(
-            preState =>[...preState,item]
+        setDbItems(
+            preState => [...preState, item]
         );
-    
+
     }
-//     useEffect(
-//     () => {
-//       const fetchedData = async () => {
-//         const response = await fetch('https://reactmealapp-1d919-default-rtdb.firebaseio.com/mealItem.json')
-//         const data = await response.json();
-//         for (const id in data) {
-//           DUMMY_MEALS.push({
-//             id: id,
-//             name: data[id].name,
-//             description: data[id].description,
-//             price: +data[id].price
-//           });
-//         };
-//       }
-//       fetchedData();
-//     }, [isItemAdded]
-//   );
+    const fetchData = async () => {
+        const response = await fetch('https://reactmealapp-1d919-default-rtdb.firebaseio.com/mealItem.json')
+        const data = await response.json();
+
+        const DBItems = []
+
+        for (const id in data ) {
+            DBItems.push({
+                id: id,
+                name: data[id].name,
+                description: data[id].description,
+                price: +data[id].price
+            })
+        };
+
+        setDbItems(DBItems);
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
 
     return (
         <React.Fragment>
             <MealsSummary />
             <InputForm inputFormData={inputFormDataHandler} />
-            <AvailableMeals DUMMY_MEALS={newItem} />
+            <AvailableMeals DUMMY_MEALS={dbItems} />
         </React.Fragment>
 
     );

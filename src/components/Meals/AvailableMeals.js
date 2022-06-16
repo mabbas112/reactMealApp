@@ -6,9 +6,14 @@ import MealItem from "./MealItem/MealItem";
 
 
 export default function AvailableMeals(props) {
+
+
+
   //   let mealsList={id:props.mealObject.id, name:props.mealObject.name, description:props.mealObject.description, price:props.mealObject.price, ...DUMMY_MEALS};
   // console.log(mealsList);
   // console.log(DUMMY_MEALS);
+
+  
   const mealsList = props.DUMMY_MEALS.map((meal) => (
     <MealItem
       // Here is an alternative we can go for 
