@@ -17,6 +17,7 @@ export default function MealItemForm(props) {
         props.onAddToCart(enteredAmountNumber);
     };
 
+    
     return (
         <React.Fragment>
             <form className={classes.form} onSubmit={submitHandler}>

@@ -1,12 +1,28 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 const InputForm = (props) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    // const [amount, setAmount] = useState('');
+    const [edit, setEdit] = useState(false);
 
+    //For updating item if declare set function outside then they go in infinite call,
+    //I declare inside if existing item change then set function will call according to state.
+    //Form should update when use click on edit button
+    useEffect(
+        () => {
+            const { editItem } = props;
+            if (editItem) {
+                setName(editItem.name);
+                setDescription(editItem.description);
+                setPrice(editItem.price);
+                setEdit(true);
+            }
+        },
+        [props.editItem]
     
+    )
+
     const nameChangeHandler = (event) => {
         setName(event.target.value);
     }
@@ -16,29 +32,23 @@ const InputForm = (props) => {
     const priceChangeHandler = (event) => {
         setPrice(event.target.value);
     }
-    // const amountChangeHandler = (event) => {
-    //     setAmount(event.target.value);
-    // }
-
     const formSubmitHandler = (event) => {
         event.preventDefault();
-
-        // console.log(name);
-        // console.log(description);
-        // console.log(price);
-        // console.log(amount);
-        props.inputFormData({
-            name:name,
-            description:description,
-            price:+price,
-            // amount:amount
-        })
+        const itemObj = {
+            name: name,
+            description: description,
+            price: +price,
+        }
+        if (!edit) {
+            props.inputFormData(itemObj)
+        } else {
+            props.inputEditFormData(itemObj)
+            setEdit(false);
+        }
 
         setName('')
         setDescription('')
-        // setAmount('')
         setPrice('')
-
     }
 
     return (
@@ -50,8 +60,6 @@ const InputForm = (props) => {
                 <input type="text" onChange={descriptionChangeHandler} value={description}></input>
                 <label>Price</label>
                 <input type="number" onChange={priceChangeHandler} value={price}></input>
-                {/* <label>Amount</label> */}
-                {/* <input type="number" onChange={amountChangeHandler} min='1' max='5' value={amount}></input> */}
                 <button type="submit">Submit</button>
             </form>
         </Fragment>
