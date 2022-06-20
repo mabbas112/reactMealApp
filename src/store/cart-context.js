@@ -1,5 +1,5 @@
 import React from "react";
-
+ 
 const CartContext = React.createContext({
     item: [],
     totalAmount:0,
@@ -8,6 +8,3 @@ const CartContext = React.createContext({
     removeAllItem:(item)=>{}
 }); 
 export default CartContext;
-
-
-

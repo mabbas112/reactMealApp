@@ -6,12 +6,10 @@ const InputForm = (props) => {
     const [price, setPrice] = useState('');
     const [edit, setEdit] = useState(false);
 
-    //For updating item if declare set function outside then they go in infinite call,
-    //I declare inside if existing item change then set function will call according to state.
     //Form should update when use click on edit button
+    const { editItem } = props;
     useEffect(
         () => {
-            const { editItem } = props;
             if (editItem) {
                 setName(editItem.name);
                 setDescription(editItem.description);
@@ -19,8 +17,7 @@ const InputForm = (props) => {
                 setEdit(true);
             }
         },
-        [props.editItem]
-    
+        [editItem]
     )
 
     const nameChangeHandler = (event) => {
@@ -39,11 +36,12 @@ const InputForm = (props) => {
             description: description,
             price: +price,
         }
+
         if (!edit) {
             props.inputFormData(itemObj)
         } else {
-            props.inputEditFormData(itemObj)
             setEdit(false);
+            props.inputEditFormData(itemObj)
         }
 
         setName('')

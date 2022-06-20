@@ -2,6 +2,6 @@ import React from "react";
 const FormContext=React.createContext({
     name:'',
     description:'',
-    price:0
+    price:''
 })
-export default FormContext;
+export default FormContext; 

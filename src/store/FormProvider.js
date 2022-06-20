@@ -4,7 +4,7 @@ const FormProvider = (props) => {
 
     const formContext={
         name:'',
-        description:'',
+        description:'', 
         price:+''
     }
 

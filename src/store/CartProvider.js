@@ -5,8 +5,7 @@ const defaultCartState = {
     items: [],
     totalAmount: 0
 }
-// Action is basically dispatch by you
-// state is the latest snapshot
+//useReducer: Action is basically dispatch by you, state is the latest snapshot
 const cartReducer = (state, action) => {
     if (action.type === 'ADD') {
         const updateTotalAmount = state.totalAmount + action.item.price * action.item.amount;
@@ -31,20 +30,16 @@ const cartReducer = (state, action) => {
         }
     }
     if (action.type === 'ALLREMOVE') {
-        let updatedItems;
-        updatedItems = state.items.filter(item => item.id !== action.item.id);
-        const updatedTotalAmount = state.totalAmount - action.item.price * action.item.amount;
 
         return {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount
+            items: state.items.filter(item => item.id !== action.item.id),
+            totalAmount: state.totalAmount - action.item.price * action.item.amount
         }
 
     }
 
-    
     if (action.type === 'REMOVE') {
-        
+
         const existingCartItemIndex = state.items.findIndex(item => item.id === action.id);
         const existingItem = state.items[existingCartItemIndex]
         const updatedTotalAmount = state.totalAmount - existingItem.price;
@@ -67,7 +62,7 @@ const cartReducer = (state, action) => {
 
 
     return defaultCartState;
-}
+} 
 
 const CartProvider = (props) => {
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);

@@ -1,6 +1,7 @@
-import React from "react";
 import classes from './MealsSummary.module.css'
+
 export default function MealsSummary() {
+
   return (
     <section className={classes.summary}>
       <h2>Delicious Food, Delivered To You</h2>
